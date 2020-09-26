@@ -1,0 +1,197 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #15202b;
+}
+
+.search-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.search-section button {
+  flex-grow: 1;
+  border-radius: 0 1em 1em 0;
+}
+
+.search-section .Mui-focused {
+  border-radius: 1em 0 0 1em;
+}
+
+.search-section .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #1da1f2;
+}
+
+.search-section .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #4ebbff;
+}
+
+.search-section
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #1da1f2;
+  border-width: 0.1em;
+}
+
+.search-section .textfield-lable {
+  color: white;
+}
+
+.search-section .MuiOutlinedInput-root {
+  border-radius: 1em 0 0 1em;
+  color: white;
+}
+
+.search-section__textfield {
+  flex-grow: 2;
+  background: #253341;
+  border-radius: 1em 0 0 1em;
+}
+
+.chart-section {
+  margin: 1em auto;
+  border-radius: 1em;
+  background: #253341;
+  width: fit-content;
+}
+
+.chart-section .MuiCard-root {
+  background: #253341;
+  border-radius: 1em;
+}
+
+.chart-section .recharts-surface {
+  margin: auto;
+  max-width: 39.5em;
+}
+
+.chart-section .MuiCardContent-root {
+  background: #253341;
+  border-radius: 1em;
+  color: white;
+}
+
+.home-page {
+  padding: 1em;
+}
+
+.table {
+  margin: auto;
+  color: white;
+}
+
+.table .MuiPaper-root {
+  background: #253341;
+  border-radius: 1em;
+}
+
+.table .MuiTableCell-root {
+  color: white;
+}
+
+.table__pagination {
+  flex-shrink: 0;
+}
+
+.table__pagination .MuiSvgIcon-root {
+  fill: #1da1f2;
+}
+
+.table__pagination .MuiSelect-select {
+  background-color: #1da1f2;
+}
+
+.table__pagination .MuiTablePagination-select {
+  padding: 0;
+}
+
+.table__pagination-dropdown {
+  background-color: black;
+}
+
+.tweets-section {
+  height: 100%;
+  padding: 2em;
+  overflow-y: scroll;
+  max-height: 45em;
+}
+
+.tweets-section.MuiPaper-root {
+  background: #1f2b36;
+  border-radius: 1em;
+}
+
+.tweets {
+  background: #1a242e;
+  padding: 1em;
+  margin-bottom: 0.5em;
+  color: white;
+  border-radius: 1em;
+}
+
+.tweets__avatar img {
+  border-radius: 2em;
+}
+
+.tweets__headline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tweets__author {
+  margin-left: 1em;
+  text-align: left;
+}
+
+.tweets__author h3 {
+  text-align: left;
+  color: white;
+}
+
+.tweets__author h4 {
+  color: #1890ff;
+}
+
+.tweets__content h4 {
+  color: #1890ff;
+  margin: 0;
+}
+
+/* width */
+.tweets-section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Track */
+.tweets-section::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Handle */
+.tweets-section::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #253341;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1da1f2;
+  border-radius: 1em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4fb4f3;
+}
