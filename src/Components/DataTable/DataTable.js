@@ -91,95 +91,32 @@ function createData(name, rate) {
   return { name, rate };
 }
 
-const rows = [
-  createData("Yoghurt", -0.8),
-  createData("Donut", 0.1),
-  createData("Eclair", 0.5),
-  createData("Frozen yoghurt", -0.6),
-  createData("Gingerbread", 0.2),
-  createData("Honeycomb", 0.3),
-  createData("Ice cream sandwich", 0.7),
-  createData("Jelly Bean", 0.23),
-  createData("KitKat", 0.823),
-  createData("Lollipop", 0.71),
-  createData("Marshmallow", 0.24),
-  createData("Nougat", -0.12),
-  createData("Oreo", -0.32),
-].sort((a, b) => (a.rate < b.rate ? -1 : 1));
-
-const useStyles2 = makeStyles({
-  table: {
-    minWidth: 500,
-  },
-});
-
-export default function TableData() {
-  const classes = useStyles2();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+export default function TableData({ title, data }) {
   return (
     <div className="table">
-      <TableContainer component={Paper}>
-        <Table aria-label="custom pagination table">
+      <TableContainer
+        component={Paper}
+        className={`table__container ${data.length !== 0 ? "show" : "hide"}`}
+      >
+        <Table aria-label="custom pagination table" stickyHeader>
           <TableHead>
-            <TableRow style={{ background: "black" }}>
-              <TableCell>Top Common Words</TableCell>
-              <TableCell align="right">Rate</TableCell>
+            <TableRow>
+              <TableCell>{title}</TableCell>
+              {/* <TableCell align="right">Rate</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row) => (
-              <TableRow key={row.name}>
+            {data.map((row, index) => (
+              <TableRow key={index} className="table__row">
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                {/* <TableCell style={{ width: 160 }} align="right">
                   {row.rate}
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
-
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
           </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                className="table__pagination-dropdown"
-                labelRowsPerPage="Rows"
-                rowsPerPageOptions={[5, 10, { label: "All", value: -1 }]}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: { "aria-label": "rows" },
-                  native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-              />
-            </TableRow>
-          </TableFooter>
         </Table>
       </TableContainer>
     </div>
