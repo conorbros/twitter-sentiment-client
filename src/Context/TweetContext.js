@@ -8,6 +8,8 @@ export function TweetContextProvider({ children }) {
   const [badWords, setBadWords] = useState([]);
   const [sentiment, setSentiment] = useState([]);
   const tweetsRef = useRef([]);
+  const sentimentRef = useRef([]);
+
   const updateTweets = (tweet) => {
     const newTweets = Array.from(tweetsRef.current);
     newTweets.unshift(tweet);
@@ -15,9 +17,12 @@ export function TweetContextProvider({ children }) {
     setTweets(tweetsRef.current);
   };
   const updateWordHistory = (data) => {
+    const newSentiments = Array.from(sentimentRef.current);
+    newSentiments.push(data.totalAvg);
+    sentimentRef.current = newSentiments;
+    setSentiment(newSentiments);
     setGoodWords(data.positive);
     setBadWords(data.negative);
-    setSentiment({ batchAvg: data.batchAvg, totalAvg: data.totalAvg });
   };
 
   return (
