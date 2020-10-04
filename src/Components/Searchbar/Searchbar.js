@@ -13,7 +13,7 @@ export default function Searchbar() {
     <div className="search-section">
       <TextField
         id="filled-basic"
-        label="Keyword..."
+        label="Keyword"
         variant="outlined"
         size="small"
         onChange={(e) => {
