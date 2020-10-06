@@ -165,6 +165,11 @@ body {
   box-shadow: 10px 10px 10px -9px rgba(0, 0, 0, 0.75);
 }
 
+.tweets__avatar {
+  position: relative;
+  width: 48px;
+}
+
 .tweets__avatar img {
   border-radius: 2em;
 }
