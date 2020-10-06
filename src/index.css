@@ -75,13 +75,16 @@ body {
 }
 
 .home-page {
+  margin-top: 2em;
   padding: 1em;
+  height: 100vh;
 }
 
-.table {
+.table.history {
   margin: auto;
   color: white;
-  min-width: 25em;
+  min-width: 48%;
+  margin-top: 1.5em;
 }
 
 .table__container {
@@ -136,7 +139,7 @@ body {
   height: 100%;
   padding: 1em;
   overflow-y: scroll;
-  max-height: 47.2em;
+  max-height: 22.75em;
 }
 
 .hide {

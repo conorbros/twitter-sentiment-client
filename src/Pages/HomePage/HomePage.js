@@ -10,13 +10,13 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <Grid container spacing={3}>
-        <Grid item sm={7} xs={12}>
+        <Grid item sm={6} xs={12}>
           <SearchBar />
           <Chart />
-          <History />
         </Grid>
-        <Grid item sm={5} xs={12}>
+        <Grid item sm={6} xs={12}>
           <Tweets />
+          <History />
         </Grid>
       </Grid>
     </div>

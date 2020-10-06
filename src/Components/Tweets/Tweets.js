@@ -26,7 +26,7 @@ export default function Tweets() {
       elevation={3}
       className={`tweets-section ${query ? "show" : "hide"}`}
     >
-      {tweets.map((tweet) => {
+      {tweets.slice(0, 15).map((tweet) => {
         return (
           <div className="tweets" key={tweet.id}>
             <div className="tweets__headline">
