@@ -80,7 +80,7 @@ body {
   height: 100vh;
 }
 
-.table.history {
+.table.top-words {
   margin: auto;
   color: white;
   min-width: 48%;
@@ -129,10 +129,24 @@ body {
   background-color: black;
 }
 
-.history-section {
+.top-words-section {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.history-section {
+  overflow-y: scroll;
+  max-height: 22.75em;
+  border-radius: 1em;
+}
+
+.history-section .MuiPaper-elevation3 {
+  background: #15202b;
+}
+
+.history {
+  margin-bottom: 1em;
 }
 
 .tweets-section {
@@ -201,18 +215,21 @@ body {
 
 /* width */
 .tweets-section::-webkit-scrollbar,
+.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar {
   display: none;
 }
 
 /* Track */
 .tweets-section::-webkit-scrollbar,
+.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar-track {
   display: none;
 }
 
 /* Handle */
 .tweets-section::-webkit-scrollbar,
+.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar-thumb {
   display: none;
 }

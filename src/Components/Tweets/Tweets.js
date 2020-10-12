@@ -1,25 +1,46 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Paper } from "@material-ui/core";
 import io from "socket.io-client";
 import { TweetContext } from "../../Context/TweetContext";
+import axios from "axios";
 
 let socket;
 const ENDPOINT = "localhost:8080";
 
 export default function Tweets() {
-  const { tweets, updateTweets, query, updateWordHistory } = useContext(
-    TweetContext
-  );
+  const {
+    tweets,
+    updateTweets,
+    query,
+    updateWordHistory,
+    updateHistorySnapshot,
+  } = useContext(TweetContext);
 
   useEffect(() => {
     socket = io(ENDPOINT);
-    console.log(query);
     if (query) {
       socket.emit("query", { keyword: `${query}` });
       socket.on("tweet", updateTweets);
       socket.on("sentiment", updateWordHistory);
+      console.log("hello");
     }
-  }, [ENDPOINT, query]);
+  }, [query]);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const data = await axios.get(
+          "http://localhost:8080/history?keyword=trump"
+        );
+        updateHistorySnapshot(data.data.json.sessions);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (query) {
+      fetchHistory();
+    }
+  }, [query]);
 
   return (
     <Paper
