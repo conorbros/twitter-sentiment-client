@@ -137,7 +137,7 @@ body {
 
 .history-section {
   overflow-y: scroll;
-  max-height: 22.75em;
+  max-height: 22em;
   border-radius: 1em;
 }
 
