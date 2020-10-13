@@ -27,10 +27,10 @@ export default function Tweets() {
   }, [query]);
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchHistory = async (keyword) => {
       try {
         const data = await axios.get(
-          "http://localhost:8080/history?keyword=trump"
+          `http://localhost:8080/history?keyword=${keyword}`
         );
         updateHistorySnapshot(data.data.json.sessions);
       } catch (error) {
@@ -38,7 +38,7 @@ export default function Tweets() {
       }
     };
     if (query) {
-      fetchHistory();
+      fetchHistory(query);
     }
   }, [query]);
 

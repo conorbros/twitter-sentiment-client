@@ -25,7 +25,7 @@ export default function Chart() {
           <LineChart
             width={700}
             height={500}
-            data={sentiment.slice(-15, -1).map((data, index) => {
+            data={sentiment.slice(-20, -1).map((data, index) => {
               return { name: index + sentimentCount.current, score: data };
             })}
           >
