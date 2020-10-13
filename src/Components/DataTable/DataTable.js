@@ -34,22 +34,20 @@ export default function TableData({
           </TableHead>
           <TableBody>
             {multikey
-              ? Array.from({ length: data[keyword].length }).map(
-                  (_, _index) => {
-                    return (
-                      <TableRow key={_index} className="table__row">
-                        {titles.map((_, index) => {
-                          const fieldName = titles[index];
-                          return (
-                            <TableCell key={index} component="th" scope="row">
-                              {data[fieldName][_index]}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  }
-                )
+              ? data[keyword].map((_, _index) => {
+                  return (
+                    <TableRow key={_index} className="table__row">
+                      {titles.map((_, index) => {
+                        const fieldName = titles[index];
+                        return (
+                          <TableCell key={index} component="th" scope="row">
+                            {data[fieldName][_index]}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })
               : data[keyword].map((row, index) => (
                   <TableRow key={index} className="table__row">
                     <TableCell component="th" scope="row">

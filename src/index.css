@@ -84,7 +84,7 @@ body {
   margin: auto;
   color: white;
   min-width: 48%;
-  margin-top: 1.5em;
+  margin-top: 1em;
 }
 
 .table__container {
@@ -137,7 +137,7 @@ body {
 
 .history-section {
   overflow-y: scroll;
-  max-height: 22.75em;
+  max-height: 22em;
   border-radius: 1em;
 }
 
@@ -153,7 +153,7 @@ body {
   height: 100%;
   padding: 1em;
   overflow-y: scroll;
-  max-height: 22.75em;
+  max-height: 35.25em;
 }
 
 .hide {

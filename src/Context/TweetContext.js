@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useState, useRef, useCallback } from "react";
 import axios from "axios";
 export const TweetContext = createContext();
 
@@ -9,7 +9,7 @@ export function TweetContextProvider({ children }) {
   const [badWords, setBadWords] = useState({ words: [] });
   const [sentiment, setSentiment] = useState([]);
   const tweetsRef = useRef([]);
-  const [historySnapshots, setSnapshot] = useState({ positiveWords: [] });
+  const [historySnapshots, setSnapshot] = useState([]);
   const sentimentRef = useRef([]);
 
   const updateTweets = (tweet) => {
@@ -27,40 +27,12 @@ export function TweetContextProvider({ children }) {
     setBadWords({ words: data.negative });
   };
   const updateHistorySnapshot = (data) => {
-    const mergedObject = data.reduce(
-      (merged, snapshot) => {
-        return {
-          date: [...merged.date, snapshot.date],
-          positiveWords: [...merged.positiveWords, snapshot.positiveWords],
-          negativeWords: [...merged.negativeWords, snapshot.negativeWords],
-          allWords: [...merged.allWords, snapshot.allWords],
-          avgSentiment: [...merged.avgSentiment, snapshot.avgSentiment],
-        };
-      },
-      {
-        date: [],
-        positiveWords: [],
-        negativeWords: [],
-        allWords: [],
-        avgSentiment: [],
-      }
-    );
-    const quantity = mergedObject.positiveWords[0].length;
-    const paddedObject = {
-      ...mergedObject,
-      date: mergedObject.date.map((_, index) =>
-        Array.from({ length: quantity }).map((_) => mergedObject.date[index])
-      ),
-      avgSentiment: mergedObject.date.map((_, index) =>
-        Array.from({ length: quantity }).map(
-          (_) => mergedObject.avgSentiment[index]
-        )
-      ),
-    };
-    console.log(paddedObject);
-    setSnapshot(paddedObject);
+    setSnapshot(data);
   };
 
+  const updateWordHistoryMemoized = useCallback(updateWordHistory, []);
+  const updateTweetsMemoized = useCallback(updateTweets, []);
+  const updateHistorySnapshotMemoized = useCallback(updateHistorySnapshot, []);
   return (
     <TweetContext.Provider
       value={{
@@ -70,10 +42,10 @@ export function TweetContextProvider({ children }) {
         goodWords,
         badWords,
         historySnapshots,
-        updateTweets,
+        updateTweetsMemoized,
         setQuery,
-        updateWordHistory,
-        updateHistorySnapshot,
+        updateWordHistoryMemoized,
+        updateHistorySnapshotMemoized,
       }}
     >
       {children}
