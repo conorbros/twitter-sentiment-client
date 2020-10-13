@@ -23,8 +23,8 @@ export default function Chart() {
       <Card style={{ margin: "auto" }}>
         <CardContent>
           <LineChart
-            width={600}
-            height={300}
+            width={700}
+            height={500}
             data={sentiment.slice(-15, -1).map((data, index) => {
               return { name: index + sentimentCount.current, score: data };
             })}
@@ -32,7 +32,7 @@ export default function Chart() {
             <Line type="monotone" dataKey="score" stroke="#1da1f2" />
             <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
             <XAxis tick={{ fill: "white" }} dataKey="name" />
-            <YAxis tick={{ fill: "white" }} />
+            <YAxis tick={{ fill: "white" }} domain={[-5.0, 5.0]} />
             <Tooltip />
           </LineChart>
         </CardContent>
