@@ -8,6 +8,7 @@ export function TweetContextProvider({ children }) {
   const [goodWords, setGoodWords] = useState({ words: [] });
   const [badWords, setBadWords] = useState({ words: [] });
   const [sentiment, setSentiment] = useState([]);
+  const [historySentiment, setHistorySentiment] = useState([]);
   const tweetsRef = useRef([]);
   const [historySnapshots, setSnapshot] = useState([]);
   const sentimentRef = useRef([]);
@@ -28,6 +29,10 @@ export function TweetContextProvider({ children }) {
   };
   const updateHistorySnapshot = (data) => {
     setSnapshot(data);
+    const historySentiment = data.map((snapShot) => {
+      return { name: snapShot.date, value: snapShot.avgSentiment };
+    });
+    setHistorySentiment(historySentiment);
   };
 
   const updateWordHistoryMemoized = useCallback(updateWordHistory, []);
@@ -42,6 +47,7 @@ export function TweetContextProvider({ children }) {
         goodWords,
         badWords,
         historySnapshots,
+        historySentiment,
         updateTweetsMemoized,
         setQuery,
         updateWordHistoryMemoized,

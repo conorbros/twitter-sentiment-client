@@ -56,6 +56,31 @@ body {
   border-radius: 1em;
   background: #253341;
   width: fit-content;
+  position: relative;
+}
+
+.chart-section button {
+  position: absolute;
+  right: 0;
+  top: 45%;
+  right: 5%;
+  max-height: 3em;
+  min-width: 18em;
+  background-color: #1890ff;
+}
+
+.chart-section button:hover {
+  background-color: #6bace9;
+}
+
+@media only screen and (max-width: 1300px) {
+  .chart-section button {
+    position: absolute;
+    top: 1%;
+    right: 15%;
+    max-height: 3em;
+    background-color: #1890ff;
+  }
 }
 
 .chart-section .MuiCard-root {
