@@ -27,7 +27,7 @@ export default function Tweets() {
       socket.on("currentSessions", (queryData) =>
         showAlertMemoized(null, queryData)
       );
-      socket.emit("currentSession", query);
+      socket.emit("currentSessions", query);
     }
   }, [query, updateWordHistoryMemoized, updateTweetsMemoized]);
 
