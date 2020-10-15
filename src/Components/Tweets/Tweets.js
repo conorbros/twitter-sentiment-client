@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useEffect, useContext, useCallback, useRef } from "react";
 import { Paper } from "@material-ui/core";
 import io from "socket.io-client";
 import { TweetContext } from "../../Context/TweetContext";
@@ -8,12 +8,14 @@ let socket;
 const ENDPOINT = "localhost:8080";
 
 export default function Tweets() {
+  const showTweets = useRef(false);
   const {
     tweets,
     updateTweetsMemoized,
     query,
     updateWordHistoryMemoized,
     updateHistorySnapshotMemoized,
+    showAlertMemoized,
   } = useContext(TweetContext);
 
   useEffect(() => {
@@ -22,7 +24,9 @@ export default function Tweets() {
       socket.emit("query", { keyword: `${query}` });
       socket.on("tweet", updateTweetsMemoized);
       socket.on("sentiment", updateWordHistoryMemoized);
-      console.log("hello");
+      socket.on("currentSessions", (queryData) =>
+        showAlertMemoized(null, queryData)
+      );
     }
   }, [query, updateWordHistoryMemoized, updateTweetsMemoized]);
 
@@ -32,7 +36,15 @@ export default function Tweets() {
         const data = await axios.get(
           `http://localhost:8080/history?keyword=${keyword}`
         );
-        updateHistorySnapshotMemoized(data.data.json.sessions);
+        const tweets = data.data.json;
+        if (!tweets) {
+          showTweets.current = false;
+          const message = "Sorry, the query is not available";
+          showAlertMemoized(message);
+        } else {
+          showTweets.current = true;
+          updateHistorySnapshotMemoized(tweets.sessions);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +57,7 @@ export default function Tweets() {
   return (
     <Paper
       elevation={3}
-      className={`tweets-section ${query ? "show" : "hide"}`}
+      className={`tweets-section ${showTweets.current ? "show" : "hide"}`}
     >
       {tweets.slice(0, 15).map((tweet) => {
         return (

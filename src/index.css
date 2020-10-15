@@ -112,6 +112,13 @@ body {
   margin-top: 1em;
 }
 
+.table.sentiment {
+  margin: auto;
+  color: white;
+  min-width: 20em;
+  margin-left: 3em;
+}
+
 .table__container {
   max-height: 20.5em;
   min-height: 20.5em;
@@ -236,6 +243,65 @@ body {
 .tweets__content h4 {
   color: #1890ff;
   margin: 0;
+}
+
+.alert-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.alert-box__error {
+  text-align: center;
+  width: 15em;
+  height: 1.5em;
+  border-radius: 1em;
+  background: rgba(255, 60, 60, 0.63);
+  position: absolute;
+  left: 45%;
+  color: #a5c7c7;
+  padding: 0.3em;
+  padding-top: 10px;
+  transform: translateY(-3em);
+  transition: 0.5s;
+}
+
+.alert-box__error.show-alert {
+  transition: 0.5s;
+  transform: translateY(0);
+}
+
+.alert-box__sentiment {
+  width: 25em;
+  height: 22em;
+  border-radius: 0.5em;
+  position: absolute;
+  right: 0;
+  color: #a5c7c7;
+  padding: 0.3em;
+  transition: 0.5s;
+  transform: translateX(23.5em);
+}
+
+.alert-box__sentiment-section {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 3fr;
+  place-items: center;
+}
+
+.alert-box__sentiment-section button {
+  position: absolute;
+  border-radius: 0;
+  z-index: 100;
+  color: #1890ff !important;
+}
+
+.alert-box__sentiment.show-sentiment {
+  transition: 0.5s ease-in;
+  transform: translateX(0);
 }
 
 /* width */

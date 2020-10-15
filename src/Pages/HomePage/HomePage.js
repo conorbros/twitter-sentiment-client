@@ -5,10 +5,11 @@ import Chart from "../../Components/Chart/Chart";
 import TopWords from "../../Components/TopWords/TopWords";
 import Tweets from "../../Components/Tweets/Tweets";
 import History from "../../Components/History/History";
-
+import AlertBox from "../../Components/AlertBox/AlertBox";
 export default function HomePage() {
   return (
     <div className="home-page">
+      <AlertBox />
       <Grid container spacing={3}>
         <Grid item sm={8} xs={12}>
           <SearchBar />
