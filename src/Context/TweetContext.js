@@ -1,15 +1,37 @@
-import React, { createContext, useState, useRef } from "react";
+import React, { createContext, useState, useRef, useCallback } from "react";
 export const TweetContext = createContext();
 
 export function TweetContextProvider({ children }) {
+  const sentimentRef = useRef([]);
+  const tweetsRef = useRef([]);
   const [tweets, setTweets] = useState([]);
   const [query, setQuery] = useState(null);
-  const [goodWords, setGoodWords] = useState([]);
-  const [badWords, setBadWords] = useState([]);
+  const [goodWords, setGoodWords] = useState({ words: [] });
+  const [badWords, setBadWords] = useState({ words: [] });
   const [sentiment, setSentiment] = useState([]);
-  const tweetsRef = useRef([]);
-  const sentimentRef = useRef([]);
+  const [historySentiment, setHistorySentiment] = useState([]);
+  const [historySnapshots, setSnapshot] = useState([]);
+  const [alert, setAlert] = useState({ state: false, message: null });
+  const [liveQuery, setLiveQuery] = useState({ keyword: [] });
 
+  const showAlert = (message, liveQueryData = null) => {
+    if (message) {
+      setAlert({ state: true, message });
+      setTimeout(() => setAlert({ state: false, message }), 1500);
+    }
+    if (liveQueryData) {
+      const mergedQuery = liveQueryData.reduce(
+        (merged, query) => {
+          return {
+            keyword: [...merged.keyword, query.keyword],
+            query: [...merged.sentiment, query.sentiment],
+          };
+        },
+        { keyword: [], sentiment: [] }
+      );
+      setLiveQuery(mergedQuery);
+    }
+  };
   const updateTweets = (tweet) => {
     const newTweets = Array.from(tweetsRef.current);
     newTweets.unshift(tweet);
@@ -21,9 +43,21 @@ export function TweetContextProvider({ children }) {
     newSentiments.push(data.totalAvg);
     sentimentRef.current = newSentiments;
     setSentiment(newSentiments);
-    setGoodWords(data.positive);
-    setBadWords(data.negative);
+    setGoodWords({ words: data.positive });
+    setBadWords({ words: data.negative });
   };
+  const updateHistorySnapshot = (data) => {
+    setSnapshot(data);
+    const historySentiment = data.map((snapShot) => {
+      return { name: snapShot.date.toUTCString(), value: snapShot.avgSentiment };
+    });
+    setHistorySentiment(historySentiment);
+  };
+
+  const updateWordHistoryMemoized = useCallback(updateWordHistory, []);
+  const updateTweetsMemoized = useCallback(updateTweets, []);
+  const updateHistorySnapshotMemoized = useCallback(updateHistorySnapshot, []);
+  const showAlertMemoized = useCallback(showAlert, []);
 
   return (
     <TweetContext.Provider
@@ -33,9 +67,15 @@ export function TweetContextProvider({ children }) {
         query,
         goodWords,
         badWords,
-        updateTweets,
+        historySnapshots,
+        historySentiment,
+        alert,
+        liveQuery,
+        updateTweetsMemoized,
         setQuery,
-        updateWordHistory,
+        updateWordHistoryMemoized,
+        updateHistorySnapshotMemoized,
+        showAlertMemoized,
       }}
     >
       {children}

@@ -1,22 +1,24 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import SearchBar from "../../Components/Searchbar/Searchbar";
 import Chart from "../../Components/Chart/Chart";
-import History from "../../Components/History/History";
+import TopWords from "../../Components/TopWords/TopWords";
 import Tweets from "../../Components/Tweets/Tweets";
-
+import History from "../../Components/History/History";
+import AlertBox from "../../Components/AlertBox/AlertBox";
 export default function HomePage() {
   return (
     <div className="home-page">
+      <AlertBox />
       <Grid container spacing={3}>
-        <Grid item sm={6} xs={12}>
+        <Grid item sm={8} xs={12}>
           <SearchBar />
           <Chart />
-        </Grid>
-        <Grid item sm={6} xs={12}>
-          <Tweets />
           <History />
+        </Grid>
+        <Grid item sm={4} xs={10}>
+          <Tweets />
+          <TopWords />
         </Grid>
       </Grid>
     </div>
