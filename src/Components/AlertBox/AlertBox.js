@@ -19,11 +19,7 @@ export default function AlertBox() {
           showSentiment ? "show-sentiment" : ""
         } ${liveQuery.keyword.length === 0 ? "hide" : ""}`}
       >
-        <div
-          className={`alert-box__sentiment-section ${
-            showSentiment ? "show-sentiment" : ""
-          }`}
-        >
+        <div className="alert-box__sentiment-section">
           {showSentiment ? (
             <IconButton
               onClick={() => setShowSentiment((prev) => !prev)}
