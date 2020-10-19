@@ -49,7 +49,7 @@ export function TweetContextProvider({ children }) {
   const updateHistorySnapshot = (data) => {
     setSnapshot(data);
     const historySentiment = data.map((snapShot) => {
-      return { name: snapShot.date, value: snapShot.avgSentiment };
+      return { name: snapShot.date.toUTCString(), value: snapShot.avgSentiment };
     });
     setHistorySentiment(historySentiment);
   };
