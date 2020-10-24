@@ -6,13 +6,14 @@ import axios from "axios";
 import ACTIONS from "../../context/actions/TweetAction";
 
 let socket;
-const ENDPOINT = "localhost:8080";
+const ENDPOINT = "https://conorb.dev/";
 
 export default function Tweets() {
   const showTweets = useRef(false);
   const { tweets, query, tweetDispatch } = useContext(TweetContext);
   const tweetsRef = useRef([]);
   const timerRef = useRef(Date.now());
+  const liveQueryDebounce = useRef(Date.now());
   const sentimentRef = useRef([]);
 
   useEffect(() => {
