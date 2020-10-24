@@ -19,7 +19,7 @@ export function TweetContextProvider({ children }) {
     historySentiment: [],
     databaseSnapshot: [],
     alertMessage: null,
-    liveQuery: { keywords: [] },
+    liveQuery: { keyword: [] },
   });
 
   // const sentimentRef = useRef([]);
