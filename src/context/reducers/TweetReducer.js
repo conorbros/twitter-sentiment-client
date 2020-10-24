@@ -40,6 +40,22 @@ export default (state, action) => {
 
     case ACTIONS.SET_ALERT_MESSAGE:
       return { ...state, alertMessage: payload };
+
+    case ACTIONS.SET_LIVE_QUERY:
+      if (payload) {
+        const mergedQuery = payload.reduce(
+          (merged, query) => {
+            return {
+              keyword: [...merged.keyword, query.keyword],
+              query: [...merged.sentiment, query.sentiment],
+            };
+          },
+          { keyword: [], sentiment: [] }
+        );
+        return { ...state, liveQuery: mergedQuery };
+      }
+      return state;
+
     default:
       return state;
   }
