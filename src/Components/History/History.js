@@ -4,7 +4,11 @@ import DataTable from "../DataTable/DataTable";
 import { Paper } from "@material-ui/core";
 
 const paddingKeyValues = (values, amount) => {
-  return Array.from({ length: amount }).map((_) => values);
+  return Array.from({ length: amount }).map((_) => {
+    const date = new Date(values);
+    const time = date.toTimeString().split(" ")[0];
+    return time;
+  });
 };
 
 export default function History() {
@@ -13,7 +17,7 @@ export default function History() {
     <div className="history-section">
       <Paper elevation={3}>
         {historySnapshots.length !== 0 &&
-          historySnapshots.map((snapShot) => {
+          historySnapshots.map((snapShot, index) => {
             const snapshot = {
               date: paddingKeyValues(
                 snapShot.date,
@@ -25,7 +29,7 @@ export default function History() {
             return (
               <DataTable
                 multikey
-                key={snapshot.date}
+                key={index}
                 titles={Object.keys(snapshot).filter(
                   (key) => key !== "allWords" && key !== "avgSentiment"
                 )}

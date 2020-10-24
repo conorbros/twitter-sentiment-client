@@ -31,7 +31,7 @@ export default function Chart() {
             height={500}
             data={
               !showHistory
-                ? sentiment.slice(-20, -1).map((data, index) => {
+                ? sentiment.map((data, index) => {
                     return {
                       name: index + sentimentCount.current,
                       score: data,

@@ -19,9 +19,27 @@ export default function Tweets() {
   } = useContext(TweetContext);
 
   useEffect(() => {
-    socket = io(ENDPOINT);
+    if (tweets.length !== 0) {
+      showTweets.current = true;
+    } else {
+      showTweets.current = false;
+    }
+  }, [tweets]);
+
+  useEffect(() => {
     if (query) {
+      socket = io(ENDPOINT);
+      socket.on("connect_error", (_) =>
+        showAlertMemoized("There was an error in the connection")
+      );
+      socket.on("connect_failed", (_) =>
+        showAlertMemoized("The connection was fail to be established")
+      );
+      socket.on("disconnect", (_) =>
+        showAlertMemoized("The connection disconnected")
+      );
       socket.emit("query", { keyword: `${query}` });
+      socket.on("error", (error) => console.log(error));
       socket.on("tweet", updateTweetsMemoized);
       socket.on("sentiment", updateWordHistoryMemoized);
       socket.on("currentSessions", (queryData) =>
@@ -39,11 +57,9 @@ export default function Tweets() {
         );
         const tweets = data.data.json;
         if (!tweets) {
-          showTweets.current = false;
           const message = "Sorry, the query is not available";
           showAlertMemoized(message);
         } else {
-          showTweets.current = true;
           updateHistorySnapshotMemoized(tweets.sessions);
         }
       } catch (error) {
@@ -60,7 +76,7 @@ export default function Tweets() {
       elevation={3}
       className={`tweets-section ${showTweets.current ? "show" : "hide"}`}
     >
-      {tweets.slice(0, 15).map((tweet) => {
+      {tweets.map((tweet) => {
         return (
           <div className="tweets" key={tweet.id}>
             <div className="tweets__headline">

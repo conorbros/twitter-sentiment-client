@@ -1,9 +1,16 @@
-import React, { createContext, useState, useRef, useCallback } from "react";
+import React, {
+  createContext,
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+} from "react";
 export const TweetContext = createContext();
 
 export function TweetContextProvider({ children }) {
   const sentimentRef = useRef([]);
   const tweetsRef = useRef([]);
+  const timerRef = useRef(0);
   const [tweets, setTweets] = useState([]);
   const [query, setQuery] = useState(null);
   const [goodWords, setGoodWords] = useState({ words: [] });
@@ -13,6 +20,10 @@ export function TweetContextProvider({ children }) {
   const [historySnapshots, setSnapshot] = useState([]);
   const [alert, setAlert] = useState({ state: false, message: null });
   const [liveQuery, setLiveQuery] = useState({ keyword: [] });
+
+  useEffect(() => {
+    timerRef.current = Date.now();
+  }, []);
 
   const showAlert = (message, liveQueryData = null) => {
     if (message) {
@@ -35,21 +46,29 @@ export function TweetContextProvider({ children }) {
   const updateTweets = (tweet) => {
     const newTweets = Array.from(tweetsRef.current);
     newTweets.unshift(tweet);
-    tweetsRef.current = newTweets;
+    tweetsRef.current = newTweets.slice(0, 10);
     setTweets(tweetsRef.current);
   };
   const updateWordHistory = (data) => {
-    const newSentiments = Array.from(sentimentRef.current);
-    newSentiments.push(data.totalAvg);
-    sentimentRef.current = newSentiments;
-    setSentiment(newSentiments);
-    setGoodWords({ words: data.positive });
-    setBadWords({ words: data.negative });
+    const current = Date.now();
+    if (current - timerRef.current > 5000) {
+      const newSentiments = Array.from(sentimentRef.current);
+      newSentiments.push(data.totalAvg);
+      sentimentRef.current = newSentiments.slice(-10, -1);
+      setSentiment(newSentiments);
+      setGoodWords({ words: data.positive });
+      setBadWords({ words: data.negative });
+      timerRef.current = current;
+    }
   };
   const updateHistorySnapshot = (data) => {
     setSnapshot(data);
     const historySentiment = data.map((snapShot) => {
-      return { name: snapShot.date.toUTCString(), value: snapShot.avgSentiment };
+      const time = new Date(snapShot.date);
+      return {
+        name: time.toTimeString().split(" ")[0],
+        value: snapShot.avgSentiment,
+      };
     });
     setHistorySentiment(historySentiment);
   };
