@@ -11,13 +11,16 @@ export default function LiveQuery() {
     <div className={`live-query-section ${display ? "showQuery" : ""}`}>
       <div className="live-query-section__table">
         <DataTable
-          titles={["Trending searchs", "Sentiment Score"]}
-          data={{ keywords: ["Trump"], sentiment: [0] }}
-          keyword={"keywords"}
           multikey
+          titles={["Trending searchs", "Sentiment Score"]}
+          data={liveQuery}
+          keyword={"keyword"}
         />
       </div>
-      <IconButton onClick={() => setDisplay((prev) => !prev)}>
+      <IconButton
+        onClick={() => setDisplay((prev) => !prev)}
+        disabled={liveQuery["keyword"].length === 0}
+      >
         {display ? <ArrowBackIosIcon /> : <ArrowForwardIosIcon />}
       </IconButton>
     </div>

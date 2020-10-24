@@ -38,7 +38,7 @@ export default function TableData({
                   return (
                     <TableRow key={_index} className="table__row">
                       {titles.map((_, index) => {
-                        const fieldName = titles[index];
+                        const fieldName = Object.keys(data)[index];
                         return (
                           <TableCell key={index} component="th" scope="row">
                             {data[fieldName][_index]}
