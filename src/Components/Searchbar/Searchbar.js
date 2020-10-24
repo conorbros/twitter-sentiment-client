@@ -1,12 +1,12 @@
 import React, { useContext, useRef } from "react";
-import { TweetContext } from "../../Context/TweetContext";
+import { TweetContext } from "../../context/TweetContext";
 import { TextField, Button } from "@material-ui/core";
-
+import ACTIONS from "../../context/actions/TweetAction";
 export default function Searchbar() {
-  const { setQuery } = useContext(TweetContext);
+  const { tweetDispatch } = useContext(TweetContext);
   const searchQuery = useRef(null);
   const onSearchHandle = () => {
-    setQuery(searchQuery.current);
+    tweetDispatch({ type: ACTIONS.SET_QUERY, payload: searchQuery.current });
   };
 
   return (

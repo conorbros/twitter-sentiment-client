@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TweetContext } from "../../Context/TweetContext";
+import { TweetContext } from "../../context/TweetContext";
 import DataTable from "../DataTable/DataTable";
 export default function TopWords() {
   const { goodWords, badWords } = useContext(TweetContext);

@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import { Card, CardContent } from "@material-ui/core";
-import { TweetContext } from "../../Context/TweetContext";
+import { TweetContext } from "../../context/TweetContext";
 
 export default function Chart() {
   const [showHistory, setShowHistory] = useState(false);
@@ -31,7 +31,7 @@ export default function Chart() {
             height={500}
             data={
               !showHistory
-                ? sentiment.slice(-20, -1).map((data, index) => {
+                ? sentiment.map((data, index) => {
                     return {
                       name: index + sentimentCount.current,
                       score: data,
