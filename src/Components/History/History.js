@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TweetContext } from "../../Context/TweetContext";
+import { TweetContext } from "../../context/TweetContext";
 import DataTable from "../DataTable/DataTable";
 import { Paper } from "@material-ui/core";
 
@@ -12,12 +12,12 @@ const paddingKeyValues = (values, amount) => {
 };
 
 export default function History() {
-  const { historySnapshots } = useContext(TweetContext);
+  const { databaseSnapshot } = useContext(TweetContext);
   return (
     <div className="history-section">
       <Paper elevation={3}>
-        {historySnapshots.length !== 0 &&
-          historySnapshots.map((snapShot, index) => {
+        {databaseSnapshot.length !== 0 &&
+          databaseSnapshot.map((snapShot, index) => {
             const snapshot = {
               date: paddingKeyValues(
                 snapShot.date,

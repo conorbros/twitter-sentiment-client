@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from "recharts";
 import { Card, CardContent } from "@material-ui/core";
-import { TweetContext } from "../../Context/TweetContext";
+import { TweetContext } from "../../context/TweetContext";
 
 export default function Chart() {
   const [showHistory, setShowHistory] = useState(false);

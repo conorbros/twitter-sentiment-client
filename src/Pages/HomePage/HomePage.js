@@ -7,12 +7,14 @@ import TopWords from "../../Components/TopWords/TopWords";
 import Tweets from "../../Components/Tweets/Tweets";
 import History from "../../Components/History/History";
 import AlertBox from "../../Components/AlertBox/AlertBox";
-import { TweetContext } from "../../Context/TweetContext";
+import LiveQuery from "../../Components/LiveQuery/LiveQuery";
+import { TweetContext } from "../../context/TweetContext";
 export default function HomePage() {
   const { query } = useContext(TweetContext);
   return (
     <div className="home-page">
-      {/* <AlertBox /> */}
+      <AlertBox />
+      <LiveQuery />
       <Grid container spacing={3}>
         <Grid item sm={8} xs={12}>
           <SearchBar />
