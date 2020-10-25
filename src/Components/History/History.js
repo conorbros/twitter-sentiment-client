@@ -30,9 +30,7 @@ export default function History() {
               <DataTable
                 multikey
                 key={index}
-                titles={Object.keys(snapshot).filter(
-                  (key) => key !== "allWords" && key !== "avgSentiment"
-                )}
+                titles={["Time Stamp", "Positive Words", "Negative Words"]}
                 data={snapshot}
                 className="history"
                 keyword="positiveWords"

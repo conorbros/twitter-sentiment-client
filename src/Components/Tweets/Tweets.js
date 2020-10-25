@@ -13,7 +13,6 @@ export default function Tweets() {
   const { tweets, query, tweetDispatch } = useContext(TweetContext);
   const tweetsRef = useRef([]);
   const timerRef = useRef(Date.now());
-  const liveQueryDebounce = useRef(Date.now());
   const sentimentRef = useRef([]);
   socket = io(ENDPOINT);
 

@@ -344,21 +344,18 @@ body {
 
 /* width */
 .tweets-section::-webkit-scrollbar,
-.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar {
   display: none;
 }
 
 /* Track */
 .tweets-section::-webkit-scrollbar,
-.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar-track {
   display: none;
 }
 
 /* Handle */
 .tweets-section::-webkit-scrollbar,
-.history-section::-webkit-scrollbar,
 .table__container::-webkit-scrollbar-thumb {
   display: none;
 }
