@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useRef,
-  useCallback,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { createContext, useReducer } from "react";
 import tweetReducer from "./reducers/TweetReducer";
 export const TweetContext = createContext();
 

@@ -15,6 +15,7 @@ export default function Tweets() {
   const timerRef = useRef(Date.now());
   const liveQueryDebounce = useRef(Date.now());
   const sentimentRef = useRef([]);
+  socket = io(ENDPOINT);
 
   useEffect(() => {
     if (tweets.length !== 0) {
@@ -25,8 +26,9 @@ export default function Tweets() {
   }, [tweets]);
 
   useEffect(() => {
+    socket.close();
     if (query) {
-      socket = io(ENDPOINT);
+      socket.open();
       socket.on("connect_error", (_) =>
         tweetDispatch({
           type: ACTIONS.SET_ALERT_MESSAGE,
@@ -42,7 +44,7 @@ export default function Tweets() {
       socket.on("disconnect", (_) =>
         tweetDispatch({
           type: ACTIONS.SET_ALERT_MESSAGE,
-          payload: "The connection disconnected",
+          payload: "The connection was disconnected",
         })
       );
       socket.emit("query", { keyword: `${query}` });
@@ -77,9 +79,7 @@ export default function Tweets() {
   useEffect(() => {
     const fetchHistory = async (keyword) => {
       try {
-        const data = await axios.get(
-          `http://localhost:8080/history?keyword=${keyword}`
-        );
+        const data = await axios.get(`${ENDPOINT}history?keyword=${keyword}`);
         const tweets = data.data.json;
         if (!tweets) {
           const message = "Sorry, the query is not available";
@@ -95,7 +95,10 @@ export default function Tweets() {
           });
         }
       } catch (error) {
-        console.log(error);
+        tweetDispatch({
+          type: ACTIONS.SET_ALERT_MESSAGE,
+          payload: "Sorry, the query is not available",
+        });
       }
     };
     if (query) {
