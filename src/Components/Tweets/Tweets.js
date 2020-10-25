@@ -110,10 +110,10 @@ export default function Tweets() {
       elevation={3}
       className={`tweets-section ${showTweets.current ? "show" : "hide"}`}
     >
-      {tweets.map((tweet) => {
+      {tweets.map((tweet, index) => {
         return (
-          <div className="tweets" key={tweet.id}>
-            <div className="tweets__headline">
+          <div className="tweets" key={index}>
+            {/* <div className="tweets__headline">
               <div className="tweets__avatar">
                 <img src={tweet.picture} alt="user_image" />
               </div>
@@ -121,7 +121,7 @@ export default function Tweets() {
                 <h3>{tweet.name}</h3>
                 <h4>@{tweet.username}</h4>
               </div>
-            </div>
+            </div> */}
             <div className="tweets__content">
               <p>{tweet.text}</p>
             </div>

@@ -47,7 +47,7 @@ export default (state, action) => {
           (merged, query) => {
             return {
               keyword: [...merged.keyword, query.keyword],
-              query: [...merged.sentiment, query.sentiment],
+              sentiment: [...merged.sentiment, query.sentiment],
             };
           },
           { keyword: [], sentiment: [] }
