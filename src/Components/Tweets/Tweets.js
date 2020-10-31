@@ -6,7 +6,7 @@ import axios from "axios";
 import ACTIONS from "../../context/actions/TweetAction";
 
 let socket;
-const ENDPOINT = "https://conorb.dev/";
+const ENDPOINT = "http://localhost:65080";
 
 export default function Tweets() {
   const showTweets = useRef(false);
@@ -44,6 +44,12 @@ export default function Tweets() {
         tweetDispatch({
           type: ACTIONS.SET_ALERT_MESSAGE,
           payload: "The connection was disconnected",
+        })
+      );
+      socket.on("query error", (error) =>
+        tweetDispatch({
+          type: ACTIONS.SET_ALERT_MESSAGE,
+          payload: error,
         })
       );
       socket.emit("query", { keyword: `${query}` });
