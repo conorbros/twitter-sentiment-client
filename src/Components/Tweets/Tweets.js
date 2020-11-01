@@ -102,7 +102,7 @@ export default function Tweets() {
       } catch (error) {
         tweetDispatch({
           type: ACTIONS.SET_ALERT_MESSAGE,
-          payload: "Sorry, the query is not available",
+          payload: "Sorry, the query history is not available",
         });
       }
     };
