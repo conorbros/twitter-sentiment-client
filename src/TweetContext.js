@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import tweetReducer from "./reducers/TweetReducer";
+import tweetReducer from "./context/reducers/TweetReducer";
 export const TweetContext = createContext();
 
 export function TweetContextProvider({ children }) {

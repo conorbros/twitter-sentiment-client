@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 import ACTIONS from "../../context/actions/TweetAction";
 export default function AlertBox() {
   const { alertMessage, tweetDispatch } = useContext(TweetContext);

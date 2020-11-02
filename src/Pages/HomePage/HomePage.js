@@ -8,7 +8,7 @@ import Tweets from "../../Components/Tweets/Tweets";
 import History from "../../Components/History/History";
 import AlertBox from "../../Components/AlertBox/AlertBox";
 import LiveQuery from "../../Components/LiveQuery/LiveQuery";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 export default function HomePage() {
   const { query } = useContext(TweetContext);
   return (

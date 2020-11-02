@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 import DataTable from "../DataTable/DataTable";
 import { Paper } from "@material-ui/core";
 

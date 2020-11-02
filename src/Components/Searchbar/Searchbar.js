@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 import { TextField, Button } from "@material-ui/core";
 import ACTIONS from "../../context/actions/TweetAction";
 export default function Searchbar() {

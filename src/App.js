@@ -1,6 +1,6 @@
 import React from "react";
 import HomePage from "./Pages/HomePage/HomePage";
-import { TweetContextProvider } from "./context/TweetContext";
+import { TweetContextProvider } from "./TweetContext";
 
 function App() {
   return (

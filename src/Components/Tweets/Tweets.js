@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useCallback, useRef } from "react";
 import { Paper } from "@material-ui/core";
 import io from "socket.io-client";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 import axios from "axios";
 import ACTIONS from "../../context/actions/TweetAction";
 

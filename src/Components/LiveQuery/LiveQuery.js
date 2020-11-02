@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import DataTable from "../DataTable/DataTable";
-import { TweetContext } from "../../context/TweetContext";
+import { TweetContext } from "../../TweetContext";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { IconButton } from "@material-ui/core";
