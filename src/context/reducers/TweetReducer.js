@@ -11,19 +11,14 @@ export default (state, action) => {
       return { ...state, tweets: newTweets };
 
     case ACTIONS.SET_SENTIMENTS:
-      const current = Date.now();
-      if (current - payload.timerRef.current > 5000) {
-        const newSentiments = Array.from(state.sentiment).slice(-10);
-        newSentiments.push(payload.data.totalAvg);
-        payload.timerRef.current = Date.now();
-        return {
-          ...state,
-          sentiment: newSentiments,
-          goodWords: { words: payload.data.positive },
-          badWords: { words: payload.data.negative },
-        };
-      }
-      return state;
+      const newSentiments = Array.from(state.sentiment).slice(-10);
+      newSentiments.push(payload.data.totalAvg);
+      return {
+        ...state,
+        sentiment: newSentiments,
+        goodWords: { words: payload.data.positive },
+        badWords: { words: payload.data.negative },
+      };
 
     case ACTIONS.SET_HISTORY_SENTIMENT:
       const historySentiment = payload.map((snapShot) => {

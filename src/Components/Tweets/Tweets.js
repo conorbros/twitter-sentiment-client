@@ -7,18 +7,17 @@ import ACTIONS from "../../context/actions/TweetAction";
 
 let socket;
 const ENDPOINT = "https://conorb.dev/";
+socket = io(ENDPOINT, {
+  transports: ["websocket"],
+  forceNew: true,
+});
 
 export default function Tweets() {
   const showTweets = useRef(false);
   const { tweets, query, tweetDispatch } = useContext(TweetContext);
   const tweetsRef = useRef([]);
-  const timerRef = useRef(Date.now());
   const connectRef = useRef(true);
   const sentimentRef = useRef([]);
-  socket = io(ENDPOINT, {
-    transports: ["websocket"],
-    forceNew: "true",
-  });
 
   useEffect(() => {
     if (tweets.length !== 0) {
@@ -30,7 +29,6 @@ export default function Tweets() {
 
   useEffect(() => {
     if (query && !connectRef.current) {
-      socket.emit("forceDisconnect");
       socket.emit("query", { keyword: `${query}` });
       socket.emit("currentSessions", query);
     }
@@ -71,7 +69,7 @@ export default function Tweets() {
       socket.on("sentiment", (data) => {
         tweetDispatch({
           type: ACTIONS.SET_SENTIMENTS,
-          payload: { data, timerRef, sentimentRef },
+          payload: { data, sentimentRef },
         });
       });
       socket.on("enhanceCalm", () =>
