@@ -30,6 +30,7 @@ export default function Tweets() {
 
   useEffect(() => {
     if (query && !connectRef.current) {
+      socket.emit("forceDisconnect");
       socket.emit("query", { keyword: `${query}` });
       socket.emit("currentSessions", query);
     }
