@@ -6,15 +6,19 @@ import axios from "axios";
 import ACTIONS from "../../context/actions/TweetAction";
 
 let socket;
-const ENDPOINT = "http://localhost:65080";
+const ENDPOINT = "https://conorb.dev/";
 
 export default function Tweets() {
   const showTweets = useRef(false);
   const { tweets, query, tweetDispatch } = useContext(TweetContext);
   const tweetsRef = useRef([]);
   const timerRef = useRef(Date.now());
+  const connectRef = useRef(true);
   const sentimentRef = useRef([]);
-  socket = io(ENDPOINT);
+  socket = io(ENDPOINT, {
+    transports: ["websocket"],
+    forceNew: "true",
+  });
 
   useEffect(() => {
     if (tweets.length !== 0) {
@@ -25,9 +29,12 @@ export default function Tweets() {
   }, [tweets]);
 
   useEffect(() => {
-    socket.close();
-    if (query) {
-      socket.open();
+    if (query && !connectRef.current) {
+      socket.emit("query", { keyword: `${query}` });
+      socket.emit("currentSessions", query);
+    }
+    if (query && connectRef.current) {
+      connectRef.current = false;
       socket.on("connect_error", (_) =>
         tweetDispatch({
           type: ACTIONS.SET_ALERT_MESSAGE,
