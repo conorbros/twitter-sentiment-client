@@ -1,14 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TweetContext } from "../../context/TweetContext";
-
+import ACTIONS from "../../context/actions/TweetAction";
 export default function AlertBox() {
-  const { alertMessage } = useContext(TweetContext);
+  const { alertMessage, tweetDispatch } = useContext(TweetContext);
   const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     if (alertMessage) {
       setDisplay(true);
-      setTimeout(() => setDisplay(false), 5000);
+      setTimeout(() => {
+        tweetDispatch({ type: ACTIONS.SET_ALERT_MESSAGE, payload: null });
+        setDisplay(false);
+      }, 5000);
     }
   }, [alertMessage]);
 
